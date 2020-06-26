@@ -8,7 +8,7 @@
         <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>guru.springframework</groupId>
+    <groupId>akr.microtraining</groupId>
     <artifactId>mssc-beer-order-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mssc-beer-order-service</name>
