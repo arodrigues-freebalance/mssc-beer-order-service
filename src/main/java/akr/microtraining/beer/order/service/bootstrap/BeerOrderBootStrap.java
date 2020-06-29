@@ -1,17 +1,19 @@
 package akr.microtraining.beer.order.service.bootstrap;
 
-import lombok.RequiredArgsConstructor;
+import java.util.UUID;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import akr.microtraining.beer.order.service.domain.Customer;
 import akr.microtraining.beer.order.service.repositories.CustomerRepository;
-
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by jt on 2019-06-06.
  */
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class BeerOrderBootStrap implements CommandLineRunner {
@@ -29,10 +31,12 @@ public class BeerOrderBootStrap implements CommandLineRunner {
 
     private void loadCustomerData() {
         if (customerRepository.count() == 0) {
-            customerRepository.save(Customer.builder()
+            Customer savedCustomer = customerRepository.save(Customer.builder()
                     .customerName(TASTING_ROOM)
                     .apiKey(UUID.randomUUID())
                     .build());
+
+            log.info("Tasting Room Customer Id: " + savedCustomer.getId().toString());
         }
     }
 }
