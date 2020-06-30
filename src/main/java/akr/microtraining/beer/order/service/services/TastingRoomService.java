@@ -1,21 +1,20 @@
 package akr.microtraining.beer.order.service.services;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import akr.microtraining.beer.order.service.bootstrap.BeerOrderBootStrap;
 import akr.microtraining.beer.order.service.domain.Customer;
-import akr.microtraining.beer.order.service.repositories.BeerOrderRepository;
 import akr.microtraining.beer.order.service.repositories.CustomerRepository;
 import akr.microtraining.beer.order.service.web.model.BeerOrderDto;
 import akr.microtraining.beer.order.service.web.model.BeerOrderLineDto;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -23,14 +22,16 @@ public class TastingRoomService {
 
     private final CustomerRepository customerRepository;
     private final BeerOrderService beerOrderService;
-    private final BeerOrderRepository beerOrderRepository;
+//    private final BeerOrderRepository beerOrderRepository;
     private final List<String> beerUpcs = new ArrayList<>(3);
 
-    public TastingRoomService(CustomerRepository customerRepository, BeerOrderService beerOrderService,
-                              BeerOrderRepository beerOrderRepository) {
-        this.customerRepository = customerRepository;
+//    public TastingRoomService(CustomerRepository customerRepository, BeerOrderService beerOrderService,
+//                              BeerOrderRepository beerOrderRepository) {
+    public TastingRoomService(CustomerRepository customerRepository, BeerOrderService beerOrderService) {
+        
+    	this.customerRepository = customerRepository;
         this.beerOrderService = beerOrderService;
-        this.beerOrderRepository = beerOrderRepository;
+//        this.beerOrderRepository = beerOrderRepository;
 
         beerUpcs.add(BeerOrderBootStrap.BEER_1_UPC);
         beerUpcs.add(BeerOrderBootStrap.BEER_2_UPC);
@@ -67,7 +68,8 @@ public class TastingRoomService {
                 .beerOrderLines(beerOrderLineSet)
                 .build();
 
-        BeerOrderDto savedOrder = beerOrderService.placeOrder(customer.getId(), beerOrder);
+//        BeerOrderDto savedOrder = beerOrderService.placeOrder(customer.getId(), beerOrder);
+        beerOrderService.placeOrder(customer.getId(), beerOrder);
 
     }
 

@@ -17,8 +17,10 @@
 
 package akr.microtraining.beer.order.service.services;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,10 +35,7 @@ import akr.microtraining.beer.order.service.repositories.CustomerRepository;
 import akr.microtraining.beer.order.service.web.mappers.BeerOrderMapper;
 import akr.microtraining.beer.order.service.web.model.BeerOrderDto;
 import akr.microtraining.beer.order.service.web.model.BeerOrderPagedList;
-
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -45,15 +44,19 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     private final BeerOrderRepository beerOrderRepository;
     private final CustomerRepository customerRepository;
     private final BeerOrderMapper beerOrderMapper;
-    private final ApplicationEventPublisher publisher;
+//    private final ApplicationEventPublisher publisher;
 
-    public BeerOrderServiceImpl(BeerOrderRepository beerOrderRepository,
-                                CustomerRepository customerRepository,
-                                BeerOrderMapper beerOrderMapper, ApplicationEventPublisher publisher) {
-        this.beerOrderRepository = beerOrderRepository;
+//    public BeerOrderServiceImpl(BeerOrderRepository beerOrderRepository,
+//                                CustomerRepository customerRepository,
+//                                BeerOrderMapper beerOrderMapper, ApplicationEventPublisher publisher) {
+        public BeerOrderServiceImpl(BeerOrderRepository beerOrderRepository,
+                CustomerRepository customerRepository,
+                BeerOrderMapper beerOrderMapper) {
+
+    	this.beerOrderRepository = beerOrderRepository;
         this.customerRepository = customerRepository;
         this.beerOrderMapper = beerOrderMapper;
-        this.publisher = publisher;
+//        this.publisher = publisher;
     }
 
     @Override
