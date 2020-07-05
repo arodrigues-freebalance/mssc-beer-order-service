@@ -24,7 +24,7 @@ import org.springframework.data.jpa.repository.Lock;
 
 import akr.microtraining.beer.order.service.domain.BeerOrder;
 import akr.microtraining.beer.order.service.domain.Customer;
-import akr.microtraining.beer.order.service.domain.OrderStatusEnum;
+import akr.microtraining.beer.order.service.domain.BeerOrderStatusEnum;
 
 import javax.persistence.LockModeType;
 import java.util.List;
@@ -38,7 +38,7 @@ public interface BeerOrderRepository  extends JpaRepository<BeerOrder, UUID> {
 
     Page<BeerOrder> findAllByCustomer(Customer customer, Pageable pageable);
 
-    List<BeerOrder> findAllByOrderStatus(OrderStatusEnum orderStatusEnum);
+    List<BeerOrder> findAllByOrderStatus(BeerOrderStatusEnum orderStatusEnum);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     BeerOrder findOneById(UUID id);
