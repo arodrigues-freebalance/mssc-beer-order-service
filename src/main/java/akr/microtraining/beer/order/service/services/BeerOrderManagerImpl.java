@@ -12,14 +12,18 @@ import akr.microtraining.beer.order.service.domain.BeerOrder;
 import akr.microtraining.beer.order.service.domain.BeerOrderEventEnum;
 import akr.microtraining.beer.order.service.domain.BeerOrderStatusEnum;
 import akr.microtraining.beer.order.service.repositories.BeerOrderRepository;
+import akr.microtraining.beer.order.service.sm.BeerOrderStateChangeInterceptor;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class BeerOrderManagerImpl implements BeerOrderManager {
 
+	public static final String ORDER_ID_HEADER = "ORDER_ID_HEADER";
+	
 	private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
 	private final BeerOrderRepository beerOrderRepository;
+	private final BeerOrderStateChangeInterceptor beerOrderStateChangeInterceptor;	
 
 	@Transactional
 	@Override
@@ -41,6 +45,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 		StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
 		
 		Message msg = MessageBuilder.withPayload(eventEnum)
+				.setHeader(ORDER_ID_HEADER, beerOrder.getId().toString())
 				.build();
 		
 		sm.sendEvent(msg);
@@ -55,6 +60,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 		
 		sm.getStateMachineAccessor()
 			.doWithAllRegions(sma -> {
+				sma.addStateMachineInterceptor(beerOrderStateChangeInterceptor);
 				sma.resetStateMachine(new DefaultStateMachineContext<BeerOrderStatusEnum, BeerOrderEventEnum>(beerOrder.getOrderStatus(), null, null, null));
 			});
 		
