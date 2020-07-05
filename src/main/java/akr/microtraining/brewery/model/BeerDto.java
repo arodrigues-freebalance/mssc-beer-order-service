@@ -1,4 +1,4 @@
-package akr.microtraining.beer.order.service.web.model;
+package akr.microtraining.brewery.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;

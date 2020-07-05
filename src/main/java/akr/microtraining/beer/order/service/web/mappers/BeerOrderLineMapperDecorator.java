@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import akr.microtraining.beer.order.service.domain.BeerOrderLine;
 import akr.microtraining.beer.order.service.services.BeerService;
-import akr.microtraining.beer.order.service.web.model.BeerDto;
-import akr.microtraining.beer.order.service.web.model.BeerOrderLineDto;
+import akr.microtraining.brewery.model.BeerDto;
+import akr.microtraining.brewery.model.BeerOrderLineDto;
 
 public abstract class BeerOrderLineMapperDecorator implements BeerOrderLineMapper {
 

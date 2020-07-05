@@ -15,27 +15,24 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package akr.microtraining.beer.order.service.web.model;
+package akr.microtraining.brewery.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import java.util.List;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class CustomerDto extends BaseItem {
+public class BeerOrderPagedList extends PageImpl<BeerOrderDto> {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1794128160900899253L;
 
-    @Builder
-    public CustomerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.name = name;
+	public BeerOrderPagedList(List<BeerOrderDto> content, Pageable pageable, long total) {
+        super(content, pageable, total);
     }
 
-    private String name;
-
+    public BeerOrderPagedList(List<BeerOrderDto> content) {
+        super(content);
+    }
 }

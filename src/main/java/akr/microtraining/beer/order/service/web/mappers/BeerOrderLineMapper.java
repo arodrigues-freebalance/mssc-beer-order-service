@@ -4,7 +4,7 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
 import akr.microtraining.beer.order.service.domain.BeerOrderLine;
-import akr.microtraining.beer.order.service.web.model.BeerOrderLineDto;
+import akr.microtraining.brewery.model.BeerOrderLineDto;
 
 @Mapper(uses = {DateMapper.class})
 @DecoratedWith(BeerOrderLineMapperDecorator.class)

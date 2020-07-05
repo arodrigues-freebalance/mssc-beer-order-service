@@ -8,7 +8,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import akr.microtraining.beer.order.service.web.model.BeerDto;
+import akr.microtraining.brewery.model.BeerDto;
 
 @ConfigurationProperties(prefix = "akr.brewery", ignoreUnknownFields = false)
 @Service

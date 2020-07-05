@@ -28,13 +28,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import akr.microtraining.beer.order.service.domain.BeerOrder;
-import akr.microtraining.beer.order.service.domain.Customer;
 import akr.microtraining.beer.order.service.domain.BeerOrderStatusEnum;
+import akr.microtraining.beer.order.service.domain.Customer;
 import akr.microtraining.beer.order.service.repositories.BeerOrderRepository;
 import akr.microtraining.beer.order.service.repositories.CustomerRepository;
 import akr.microtraining.beer.order.service.web.mappers.BeerOrderMapper;
-import akr.microtraining.beer.order.service.web.model.BeerOrderDto;
-import akr.microtraining.beer.order.service.web.model.BeerOrderPagedList;
+import akr.microtraining.brewery.model.BeerOrderDto;
+import akr.microtraining.brewery.model.BeerOrderPagedList;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

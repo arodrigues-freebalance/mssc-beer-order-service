@@ -17,11 +17,11 @@
 
 package akr.microtraining.beer.order.service.repositories;
 
+import java.util.UUID;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import akr.microtraining.beer.order.service.domain.BeerOrderLine;
-
-import java.util.UUID;
 
 public interface BeerOrderLineRepository extends PagingAndSortingRepository<BeerOrderLine, UUID> {
 }

@@ -16,12 +16,12 @@
  */
 package akr.microtraining.beer.order.service.repositories;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import akr.microtraining.beer.order.service.domain.Customer;
-
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.

@@ -17,18 +17,19 @@
 package akr.microtraining.beer.order.service.repositories;
 
 
+import java.util.List;
+import java.util.UUID;
+
+import javax.persistence.LockModeType;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 
 import akr.microtraining.beer.order.service.domain.BeerOrder;
-import akr.microtraining.beer.order.service.domain.Customer;
 import akr.microtraining.beer.order.service.domain.BeerOrderStatusEnum;
-
-import javax.persistence.LockModeType;
-import java.util.List;
-import java.util.UUID;
+import akr.microtraining.beer.order.service.domain.Customer;
 
 
 /**

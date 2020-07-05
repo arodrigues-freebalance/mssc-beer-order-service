@@ -18,12 +18,12 @@
 package akr.microtraining.beer.order.service.services;
 
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Pageable;
 
-import akr.microtraining.beer.order.service.web.model.BeerOrderDto;
-import akr.microtraining.beer.order.service.web.model.BeerOrderPagedList;
-
-import java.util.UUID;
+import akr.microtraining.brewery.model.BeerOrderDto;
+import akr.microtraining.brewery.model.BeerOrderPagedList;
 
 public interface BeerOrderService {
     BeerOrderPagedList listOrders(UUID customerId, Pageable pageable);

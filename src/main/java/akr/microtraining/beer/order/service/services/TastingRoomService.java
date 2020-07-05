@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import akr.microtraining.beer.order.service.bootstrap.BeerOrderBootStrap;
 import akr.microtraining.beer.order.service.domain.Customer;
 import akr.microtraining.beer.order.service.repositories.CustomerRepository;
-import akr.microtraining.beer.order.service.web.model.BeerOrderDto;
-import akr.microtraining.beer.order.service.web.model.BeerOrderLineDto;
+import akr.microtraining.brewery.model.BeerOrderDto;
+import akr.microtraining.brewery.model.BeerOrderLineDto;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
