@@ -1,5 +1,6 @@
 package akr.microtraining.brewery.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -16,9 +17,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BeerOrderLineDto{
+public class BeerOrderLineDto implements Serializable{
 
-    @JsonProperty("id")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9062352522986182553L;
+
+	@JsonProperty("id")
     private UUID id = null;
 
     @JsonProperty("version")

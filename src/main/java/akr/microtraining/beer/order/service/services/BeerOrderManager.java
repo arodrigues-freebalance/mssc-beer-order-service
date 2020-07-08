@@ -7,7 +7,7 @@ import akr.microtraining.brewery.model.BeerOrderDto;
 
 public interface BeerOrderManager {
 
-		BeerOrder newBewOrder(BeerOrder beerOrder );
+		BeerOrder newBeerOrder(BeerOrder beerOrder );
 		
 		void processValidationResult(UUID beerOrderId, Boolean isValid);
 		
@@ -16,4 +16,5 @@ public interface BeerOrderManager {
 	    void beerOrderAllocationPendingInventory(BeerOrderDto beerOrder);
 
 	    void beerOrderAllocationFailed(BeerOrderDto beerOrder);		
+	    
 }
