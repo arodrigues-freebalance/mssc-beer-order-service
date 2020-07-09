@@ -3,6 +3,8 @@ package akr.microtraining.beer.order.service.services;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -30,6 +32,8 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 	private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
 	private final BeerOrderRepository beerOrderRepository;
 	private final BeerOrderStateChangeInterceptor beerOrderStateChangeInterceptor;	
+	
+	private final EntityManager entityManager;
 
 
 	@Transactional
@@ -51,6 +55,8 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     public void processValidationResult(UUID beerOrderId, Boolean isValid) {
      
         log.debug("Process Validation Result for beerOrderId: " + beerOrderId + " Valid? " + isValid);
+        
+        entityManager.flush();
 
         Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
 
@@ -101,6 +107,14 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         }, () -> log.error("Order Not Found. Id: " + id));
     }    
 	
+    @Override
+    public void cancelOrder(UUID id) {
+        beerOrderRepository.findById(id).ifPresentOrElse(beerOrder -> {
+            sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.CANCEL_ORDER);
+        }, () -> log.error("Order Not Found. Id: " + id));
+    }
+    
+    
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum) {
 		
