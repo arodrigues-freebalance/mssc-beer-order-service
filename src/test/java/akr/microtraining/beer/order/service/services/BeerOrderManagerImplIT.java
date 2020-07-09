@@ -4,6 +4,7 @@ import static com.github.jenspiegsa.wiremockextension.ManagedWireMockServer.with
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.jgroups.util.Util.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,12 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jms.core.JmsTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+import akr.microtraining.beer.order.service.config.JmsConfig;
 import akr.microtraining.beer.order.service.domain.BeerOrder;
 import akr.microtraining.beer.order.service.domain.BeerOrderLine;
 import akr.microtraining.beer.order.service.domain.BeerOrderStatusEnum;
@@ -32,6 +35,7 @@ import akr.microtraining.beer.order.service.domain.Customer;
 import akr.microtraining.beer.order.service.repositories.BeerOrderRepository;
 import akr.microtraining.beer.order.service.repositories.CustomerRepository;
 import akr.microtraining.brewery.model.BeerDto;
+import akr.microtraining.brewery.model.events.AllocationFailureEvent;
 
 @ExtendWith(WireMockExtension.class)
 @SpringBootTest
@@ -51,6 +55,10 @@ public class BeerOrderManagerImplIT {
     
 	@Autowired
     WireMockServer wireMockServer;
+	
+    @Autowired
+    JmsTemplate jmsTemplate;
+
     
 	Customer testCustomer;
     UUID beerId = UUID.randomUUID();
@@ -168,6 +176,13 @@ public class BeerOrderManagerImplIT {
             BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
             assertEquals(BeerOrderStatusEnum.ALLOCATION_EXCEPTION, foundOrder.getOrderStatus());
         });
+        
+
+        AllocationFailureEvent allocationFailureEvent = (AllocationFailureEvent) jmsTemplate.receiveAndConvert(JmsConfig.ALLOCATE_FAILURE_QUEUE);
+
+        assertNotNull(allocationFailureEvent);
+        assertThat(allocationFailureEvent.getOrderId()).isEqualTo(savedBeerOrder.getId());
+        
     }
 
     @Test
