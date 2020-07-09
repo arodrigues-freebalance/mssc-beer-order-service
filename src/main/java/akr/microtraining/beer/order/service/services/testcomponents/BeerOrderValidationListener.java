@@ -15,10 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Component
 public class BeerOrderValidationListener {
-    private final JmsTemplate jmsTemplate;
+
+	private final JmsTemplate jmsTemplate;
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
-    public void list(Message msg){
+    public void listen(Message msg){
 
         ValidateOrderRequest request = (ValidateOrderRequest) msg.getPayload();
 
