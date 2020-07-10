@@ -36,11 +36,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BeerOrderDto implements Serializable{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 2252645087984282444L;
-
+	
 	@JsonProperty("id")
     private UUID id = null;
 
