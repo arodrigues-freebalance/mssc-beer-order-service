@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.github.sfg-beer-works</groupId>
 	    <artifactId>sfg-brewery-bom</artifactId>
-	    <version>1.0.13</version>	
+	    <version>1.0.17</version>	
 	</parent>    
 	
 	<groupId>akr.microtraining</groupId>
@@ -15,7 +15,15 @@
     <name>mssc-beer-order-service</name>
     <description>MSSC Beer Order Service</description>
 
-
+	<properties>
+	
+        <!--set this to your docker acct name-->
+        <docker.image.prefix>arodriguesfreebalance</docker.image.prefix>
+        <!--Set to name of project-->
+        <docker.image.name>${project.artifactId}</docker.image.name>
+	
+	</properties>
+	
     <dependencies>
     	<dependency>
     		<groupId>org.springframework.boot</groupId>
